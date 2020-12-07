@@ -1,0 +1,42 @@
+# ░░░░░░░░░░░░░░░   SlimeChunkPlus, By Momocraft♥   ░░░░░░░░░░░░░░░
+#  Spigot: https://www.spigotmc.org/resources/lotteryplus.85995/
+#  Wiki: https://github.com/momoservertw/SlimeChunkPlus/wiki
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+Config-Version: 1
+Check-Updates: true
+Debugging: false
+
+# Checking the chunk where player stand is slime chunk or not.
+Slime-Chunk:
+  Enable: true
+  Succeed:
+    Message: true
+    # Send nearby slime chunks amount.
+    Nearby-Information:
+      Enable: true
+      # Unit: chunk
+      Range: 4
+    Commands: []
+    #  - "op: svis chunk"
+  Failded:
+    Message: true
+    Commands: []
+
+Message:
+  prefix: "&f[&eSlimeChunkPlus&f] &r"
+  noPermission: "&cYou do not have permission to use that command!"
+  configReload: "&aConfiguration(s) Reloaded!"
+  unknownCommand: "&cUnknown command, See &e/SlimeChunkPlus help &cfor a list of commands."
+  targetNotFound: "&cThe player %targetplayer% could not be found!"
+  featureDisabled: "&cThe feature is disabled."
+  onlyPlayer: "&cThis command can only executing from player."
+  SlimeChunkPlus:
+    Commands:
+      title: "&8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ &dSlimeChunkPlus &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
+      help: "&f/scp help &8- &7This help menu."
+      reload: "&f/scp reload &8- &7Reloads config file."
+      version: "&f/scp version &8- &7Checks the plugin version and updates."
+      checkslime: "&f/scp checkslime &8- &7To get the information of slime chunks."
+    slimeChunkFound: "&aYou are standing on a slime chunk."
+    slimeChunkNotFound: "&cYou are not standing on a slime chunk."
+    slimeChunkNearInfo: "&eThere are %amount% within a hundred blocks of you. The nearest"

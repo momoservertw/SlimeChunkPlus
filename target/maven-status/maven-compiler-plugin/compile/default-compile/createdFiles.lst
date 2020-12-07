@@ -1,0 +1,17 @@
+tw\momocraft\slimechunkplus\handlers\PlayerHandler.class
+tw\momocraft\slimechunkplus\handlers\RegisterHandler.class
+tw\momocraft\slimechunkplus\handlers\ConfigHandler.class
+tw\momocraft\slimechunkplus\utils\Language.class
+tw\momocraft\slimechunkplus\utils\SlimeChunk.class
+tw\momocraft\slimechunkplus\utils\Zip.class
+tw\momocraft\slimechunkplus\handlers\PermissionsHandler.class
+tw\momocraft\slimechunkplus\utils\TabComplete.class
+tw\momocraft\slimechunkplus\utils\ConfigPath.class
+tw\momocraft\slimechunkplus\utils\CustomCommands.class
+tw\momocraft\slimechunkplus\utils\Utils.class
+tw\momocraft\slimechunkplus\Commands.class
+tw\momocraft\slimechunkplus\handlers\UpdateHandler.class
+tw\momocraft\slimechunkplus\handlers\ServerHandler.class
+tw\momocraft\slimechunkplus\SlimeChunkPlus.class
+tw\momocraft\slimechunkplus\utils\BungeeCord.class
+tw\momocraft\slimechunkplus\utils\Logger.class
