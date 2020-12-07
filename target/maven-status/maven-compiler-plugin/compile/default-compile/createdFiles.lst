@@ -10,7 +10,6 @@ tw\momocraft\slimechunkplus\utils\ConfigPath.class
 tw\momocraft\slimechunkplus\utils\CustomCommands.class
 tw\momocraft\slimechunkplus\utils\Utils.class
 tw\momocraft\slimechunkplus\Commands.class
-tw\momocraft\slimechunkplus\handlers\UpdateHandler.class
 tw\momocraft\slimechunkplus\handlers\ServerHandler.class
 tw\momocraft\slimechunkplus\SlimeChunkPlus.class
 tw\momocraft\slimechunkplus\utils\BungeeCord.class

@@ -39,4 +39,5 @@ Message:
       checkslime: "&f/scp checkslime &8- &7To get the information of slime chunks."
     slimeChunkFound: "&aYou are standing on a slime chunk."
     slimeChunkNotFound: "&cYou are not standing on a slime chunk."
-    slimeChunkNearInfo: "&eThere are %amount% within a hundred blocks of you. The nearest"
+    slimeChunkNearInfo: "&eThere are %amount% slime blocks in the 4 chunk around you /n &fNearest one: %distance% blocks."
+    slimeChunkNearInfoNull: "&6There is no slime block in the 4 chunk around you."

@@ -1,5 +1,6 @@
 package tw.momocraft.slimechunkplus.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -11,6 +12,7 @@ import tw.momocraft.slimechunkplus.handlers.ServerHandler;
 import java.util.*;
 
 public class SlimeChunk {
+
     public static void startCheck(CommandSender sender, Player target) {
         Player player;
         if (target != null) {
@@ -24,6 +26,8 @@ public class SlimeChunk {
                 Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkFound", player);
             }
             CustomCommands.executeMultiCmdsList(player, ConfigHandler.getConfigPath().getSlimeChunkSucCmds());
+            ServerHandler.sendFeatureMessage("Slime-Chunk", player.getName(), "final", "success",
+                    new Throwable().getStackTrace()[0]);
         } else {
             if (ConfigHandler.getConfigPath().isSlimeChunkFaiMsg()) {
                 Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNotFound", player);
@@ -31,11 +35,17 @@ public class SlimeChunk {
             CustomCommands.executeMultiCmdsList(player, ConfigHandler.getConfigPath().getSlimeChunkFaiCmds());
             if (ConfigHandler.getConfigPath().isSlimeChunkNearInfo()) {
                 Map<Integer, Integer> chunkMap = getSlimeChunksAround(loc, ConfigHandler.getConfigPath().getSlimeChunkNearInfoRange());
-                String[] placeHolders = Language.newString();
-                placeHolders[6] = String.valueOf(chunkMap.keySet().size());
-                placeHolders[7] = String.valueOf(getNearestDistance(chunkMap));
-                Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNearInfo", player, placeHolders);
+                if (!chunkMap.isEmpty()) {
+                    String[] placeHolders = Language.newString();
+                    placeHolders[6] = String.valueOf(chunkMap.keySet().size());
+                    placeHolders[7] = String.valueOf(getNearestDistance(chunkMap));
+                    Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNearInfo", player, placeHolders);
+                } else {
+                    Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNearInfoNull", player);
+                }
             }
+            ServerHandler.sendFeatureMessage("Slime-Chunk", player.getName(), "final", "fail",
+                    new Throwable().getStackTrace()[0]);
         }
     }
 
@@ -66,6 +76,6 @@ public class SlimeChunk {
             distanceList.add(x * chunkMap.get(x));
         }
         Collections.sort(distanceList);
-        return distanceList.get((distanceList.size() / 2) + 1);
+        return distanceList.get((distanceList.size() / 2) + 1) * 16;
     }
 }
