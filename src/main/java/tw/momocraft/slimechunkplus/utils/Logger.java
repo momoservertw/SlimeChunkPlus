@@ -42,7 +42,7 @@ public class Logger {
                 ServerHandler.sendDebugTrace(e);
             }
         } else {
-            if (ConfigHandler.getConfigPath().isLogDefaultNew()) {
+            if (ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Default.New-File")) {
                 Date modifiedDate = new Date(defaultFile.lastModified());
                 Date currentDate = new Date();
                 // Exist old log.
@@ -65,7 +65,7 @@ public class Logger {
                         ServerHandler.sendDebugTrace(e);
                     }
                     // Compress the older log.
-                    if (ConfigHandler.getConfigPath().isLogDefaultZip()) {
+                    if (ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Default.To-Zip")) {
                         try {
                             if (ConfigHandler.getZip().zipFiles(defaultFile, null, null)) {
                                 ServerHandler.sendConsoleMessage("&6Log: &fcompress log &8\"&e" + renameFile.getName() + ".zip &8\"  &c✘");
@@ -91,14 +91,14 @@ public class Logger {
      * To create custom log file.
      */
     public void createCustomLog() {
-        String path = ConfigHandler.getConfigPath().getLogCustomPath();
+        String path = ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands.Settings.Log.Custom.Path");
         if (path.startsWith("plugin//")) {
             path = path.replace("plugin/", SlimeChunkPlus.getInstance().getDataFolder().getPath());
         } else if (path.startsWith("server//")) {
             path = path.replace("server//", Bukkit.getServer().getWorldContainer().getPath());
         }
         if (customFile == null) {
-            customFile = new File(path + "\\" + ConfigHandler.getConfigPath().getLogCustomName() + ".log");
+            customFile = new File(path + "\\" + ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands.Settings.Log.Custom.Name") + ".log");
         }
         File folder = new File(path);
         if (!folder.exists()) {
@@ -120,7 +120,7 @@ public class Logger {
                 ServerHandler.sendDebugTrace(e);
             }
         } else {
-            if (ConfigHandler.getConfigPath().isLogCustomNew()) {
+            if (ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Custom.New-File")) {
                 String logPath = customFile.getParentFile().getPath() + "\\" + new SimpleDateFormat("yyyy-MM-dd").format(new Date(customFile.lastModified()));
                 File renameFile = new File(logPath + ".log");
                 String logName;
@@ -137,7 +137,7 @@ public class Logger {
                 } catch (Exception e) {
                     ServerHandler.sendDebugTrace(e);
                 }
-                if (ConfigHandler.getConfigPath().isLogCustomZip()) {
+                if (ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Custom.To-Zip")) {
                     try {
                         if (ConfigHandler.getZip().zipFiles(customFile, null, null)) {
                             ServerHandler.sendConsoleMessage("&6Log: &fcompress log &8\"&e" + renameFile.getName() + ".zip &8\"  &c✘");

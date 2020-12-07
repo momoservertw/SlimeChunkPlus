@@ -1,29 +1,57 @@
 # ░░░░░░░░░░░░░░░   SlimeChunkPlus, By Momocraft♥   ░░░░░░░░░░░░░░░
-#  Spigot: https://www.spigotmc.org/resources/lotteryplus.85995/
+#  Spigot: https://www.spigotmc.org/resources/slimechunkplus.85995/
 #  Wiki: https://github.com/momoservertw/SlimeChunkPlus/wiki
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 Config-Version: 1
 Check-Updates: true
 Debugging: false
 
-# Checking the chunk where player stand is slime chunk or not.
+General:
+  Sounds:
+    Succeed:
+      Type: ENTITY_PLAYER_LEVELUP
+    Failed:
+      Type: ENTITY_SHULKER_HURT
+    SlimeJump:
+      Type: ENTITY_SLIME_JUMP
+      Loop:
+        Times: 8
+        Interval: 20
+  Particles:
+    Slime:
+      Type: SLIME
+      Amount: 3
+      Times: 8
+      Interval: 20
+
+# Checking the nearby slime chunk.
+# More information: https://github.com/momoservertw/SlimeChunkPlus/wiki/Slime-Chunk
 Slime-Chunk:
   Enable: true
   Succeed:
     Message: true
-    # Send nearby slime chunks amount.
+    Sounds:
+      - Succeed
+      - SlimeJump
+    Particles:
+      - Slime
+    # Sending nearby slime chunks information.
     Nearby-Information:
       Enable: true
       # Unit: chunk
-      Range: 4
-    Commands: []
+      Range: 3
+    Commands: [ ]
+    # To display current chunk by Selection Visualizer.
     #  - "op: svis chunk"
-  Failded:
+  Failed:
     Message: true
-    Commands: []
+    Sounds:
+      - Failed
+    Particles: [ ]
+    Commands: [ ]
 
 Message:
-  prefix: "&f[&eSlimeChunkPlus&f] &r"
+  prefix: "&f[&aSLP&f] &r"
   noPermission: "&cYou do not have permission to use that command!"
   configReload: "&aConfiguration(s) Reloaded!"
   unknownCommand: "&cUnknown command, See &e/SlimeChunkPlus help &cfor a list of commands."
@@ -38,6 +66,6 @@ Message:
       version: "&f/scp version &8- &7Checks the plugin version and updates."
       checkslime: "&f/scp checkslime &8- &7To get the information of slime chunks."
     slimeChunkFound: "&aYou are standing on a slime chunk."
-    slimeChunkNotFound: "&cYou are not standing on a slime chunk."
-    slimeChunkNearInfo: "&eThere are %amount% slime blocks in the 4 chunk around you /n &fNearest one: %distance% blocks."
-    slimeChunkNearInfoNull: "&6There is no slime block in the 4 chunk around you."
+    slimeChunkNotFound: "&fYou are not standing on a slime chunk."
+    slimeChunkNearInfo: "&eThere are &6%amount% slime blocks &enearby you. &7(Distance: %distance%)"
+    slimeChunkNearInfoNull: "&cThere is no slime block nearby you."

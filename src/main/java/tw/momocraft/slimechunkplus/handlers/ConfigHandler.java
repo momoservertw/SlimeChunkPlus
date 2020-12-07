@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class ConfigHandler {
 
     private static YamlConfiguration configYAML;
+    private static DependAPI depends;
     private static ConfigPath configPath;
     private static UpdateHandler updater;
     private static Logger logger;
@@ -18,6 +19,7 @@ public class ConfigHandler {
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
+        setDepends(new DependAPI());
         setConfigPath(new ConfigPath());
         if (!reload) {
             //setUpdater(new UpdateHandler());
@@ -94,6 +96,14 @@ public class ConfigHandler {
             }
         }
         getConfig(fileName).options().copyDefaults(false);
+    }
+
+    public static DependAPI getDepends() {
+        return depends;
+    }
+
+    private static void setDepends(DependAPI depend) {
+        depends = depend;
     }
 
     private static void setConfigPath(ConfigPath configPath) {

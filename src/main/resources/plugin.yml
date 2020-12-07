@@ -4,13 +4,13 @@ author: Momocraft
 api-version: 1.13
 version: 1.0.0
 description: Controling inventory.
-softdepend: [ ]
+softdepend: [Vault, PlayerPoints, PlaceHolderAPI]
 
 commands:
   slimechunkplus:
     description: Displays main command menu.
     permission: slimechunkplus.use
-    aliases: [ itp ]
+    aliases: [ scp ]
     usage: |
       /slimechunkplus
 

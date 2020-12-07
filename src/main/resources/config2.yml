@@ -32,7 +32,6 @@ General:
       Interval: 20
 
 # Checking the nearby slime chunk.
-# More information: https://github.com/momoservertw/SlimeChunkPlus/wiki/Slime-Chunk
 Slime-Chunk:
   Enable: true
   Succeed:
@@ -47,18 +46,18 @@ Slime-Chunk:
       Enable: true
       # Unit: chunk
       Range: 3
-    Commands: [ ]
+    Commands: []
     # To display current chunk by Selection Visualizer.
     #  - "op: svis chunk"
   Failed:
     Message: true
     Sounds:
       - Failed
-    Particles: [ ]
-    Commands: [ ]
+    Particles: []
+    Commands: []
 
 Message:
-  prefix: "&f[&aSLP&f] &r"
+  prefix: "&a&l黏液檢測器&4&l〄 &r"
   noPermission: "&cYou do not have permission to use that command!"
   configReload: "&aConfiguration(s) Reloaded!"
   unknownCommand: "&cUnknown command, See &e/SlimeChunkPlus help &cfor a list of commands."
@@ -72,7 +71,7 @@ Message:
       reload: "&f/scp reload &8- &7Reloads config file."
       version: "&f/scp version &8- &7Checks the plugin version and updates."
       checkslime: "&f/scp checkslime &8- &7To get the information of slime chunks."
-    slimeChunkFound: "&aYou are standing on a slime chunk."
-    slimeChunkNotFound: "&fYou are not standing on a slime chunk."
-    slimeChunkNearInfo: "&eThere are &6%amount% slime blocks &enearby you. &7(Distance: %distance%)"
-    slimeChunkNearInfoNull: "&cThere is no slime block nearby you."
+    slimeChunkFound: "&e在此處發現史萊姆黏液！"
+    slimeChunkNotFound: "&f此處沒有發現史萊姆黏液！"
+    slimeChunkNearInfo: "&e附近有 &6%amount%個 &e區域檢測到些微黏液 &7(最近距離: %distance%)"
+    slimeChunkNearInfoNull: "&c附近沒有任何史萊姆的氣息..."
