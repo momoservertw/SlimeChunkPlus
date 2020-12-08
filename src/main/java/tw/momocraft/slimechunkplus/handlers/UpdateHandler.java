@@ -1,6 +1,7 @@
 package tw.momocraft.slimechunkplus.handlers;
 
 import org.bukkit.command.CommandSender;
+import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,23 +10,22 @@ import java.net.URLConnection;
 
 public class UpdateHandler {
 
-    private final String plugin = "slimechunkplus";
-    private final int PROJECTID = 85995;
+    private final int PROJECTID = 86532;
 
-    private final String versionExact = tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().getDescription().getVersion();
+    private final String versionExact = SlimeChunkPlus.getInstance().getDescription().getVersion();
     private final String localeVersion = this.versionExact.split("-")[0];
     private String latestVersion;
 
     private final boolean updatesAllowed = ConfigHandler.getConfig("config.yml").getBoolean("Check-Updates");
 
     public UpdateHandler() {
-        this.checkUpdates(tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().getServer().getConsoleSender());
+        this.checkUpdates(SlimeChunkPlus.getInstance().getServer().getConsoleSender());
     }
 
     public void checkUpdates(final CommandSender sender) {
         if (this.updateNeeded(sender) && this.updatesAllowed) {
             ServerHandler.sendMessage(sender, "&aNew version is available: " + "&ev" + this.latestVersion);
-            ServerHandler.sendMessage(sender, "&ehttps://www.spigotmc.org/resources/" + plugin + "." + PROJECTID + "/history");
+            ServerHandler.sendMessage(sender, "&ehttps://www.spigotmc.org/resources/" + SlimeChunkPlus.getInstance().getName().toLowerCase() + "." + PROJECTID + "/history");
         } else if (this.updatesAllowed) {
             ServerHandler.sendMessage(sender, "&fYou are up to date!");
         }

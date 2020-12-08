@@ -1,5 +1,5 @@
 # ░░░░░░░░░░░░░░░   SlimeChunkPlus, By Momocraft♥   ░░░░░░░░░░░░░░░
-#  Spigot: https://www.spigotmc.org/resources/slimechunkplus.85995/
+#  Spigot: https://www.spigotmc.org/resources/slimechunkplus.86532/
 #  Wiki: https://github.com/momoservertw/SlimeChunkPlus/wiki
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 Config-Version: 1
@@ -34,8 +34,13 @@ General:
       Amount: 3
       Times: 8
       Interval: 20
+    Flame:
+      Type: FLAME
+      Amount: 3
+      Times: 8
+      Interval: 20
   # The settings for custom commands.
-  # More information: https://github.com/momoservertw/SlimeChunkPlus/wiki/Custom-Command
+      # More information: https://github.com/momoservertw/SlimeChunkPlus/wiki/Custom-Commands
   Custom-Commands:
     Settings:
       Log:
@@ -76,6 +81,7 @@ Slime-Chunk:
     Message: true
     Commands:
       - "sound: Failed"
+      - "particle: Flame"
 
 Message:
   prefix: "&f[&aSLP&f] &r"
@@ -95,4 +101,4 @@ Message:
     slimeChunkFound: "&aYou are standing on a slime chunk."
     slimeChunkNotFound: "&fYou are not standing on a slime chunk."
     slimeChunkNearInfo: "&eThere are &6%amount% slime blocks &enearby you. &7(Distance: %distance% blocks)"
-    slimeChunkNearInfoNull: "&cThere is no slime block nearby you."
+    slimeChunkNearInfoNull: "&cThere is no slime chunks nearby you."

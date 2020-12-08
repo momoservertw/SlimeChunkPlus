@@ -2,8 +2,8 @@ name: SlimeChunkPlus
 main: tw.momocraft.slimechunkplus.SlimeChunkPlus
 author: Momocraft
 api-version: 1.13
-version: 1.0.0
-description: Controling inventory.
+version: 1.0.1
+description: Best slime chunk checking plugin! Executing custom command and show particle.
 softdepend: [Vault, PlayerPoints, PlaceHolderAPI]
 
 commands:
@@ -30,41 +30,13 @@ permissions:
     children:
       slimechunkplus.command.reload: true
       slimechunkplus.command.version: true
-      slimechunkplus.command.clear: true
-      slimechunkplus.command.clear.other: true
-      slimechunkplus.command.cleanslot: true
-      slimechunkplus.command.cleanslot.oter: true
-      slimechunkplus.command.takeoff: true
-      slimechunkplus.command.takeoff.other: true
-      slimechunkplus.command.takeoffslot: true
-      slimechunkplus.command.takeoffslot.oter: true
+      slimechunkplus.command.slimecheck: true
   slimechunkplus.command.reload:
-    description: Allows use of /SlimeChunkPlus command reload.
+    description: Allows use of /slimechunkplus command reload.
     default: op
   slimechunkplus.command.version:
-    description: Allows use of command /SlimeChunkPlus version.
+    description: Allows use of command /slimechunkplus version.
     default: op
-  slimechunkplus.command.clear:
-    description: Allows use of command /SlimeChunkPlus clear.
-    default: op
-  slimechunkplus.command.clear.other:
-    description: Allows use of command /SlimeChunkPlus clear PLAYER.
-    default: op
-  slimechunkplus.command.cleanslot:
-    description: Allows use of command /SlimeChunkPlus cleanslot.
-    default: op
-  slimechunkplus.command.cleanslot.other:
-    description: Allows use of command /SlimeChunkPlus cleanslot PLAYER.
-    default: op
-  slimechunkplus.command.takeoff:
-    description: Allows use of command /SlimeChunkPlus takeoff.
-    default: op
-  slimechunkplus.command.takeoff.other:
-    description: Allows use of command /SlimeChunkPlus takeoff PLAYER.
-    default: op
-  slimechunkplus.command.takeoffslot:
-    description: Allows use of command /SlimeChunkPlus takeoffslot.
-    default: op
-  slimechunkplus.command.takeoffslot.other:
-    description: Allows use of command /SlimeChunkPlus takeoffslot PLAYER.
+  slimechunkplus.command.slimecheck:
+    description: Allows use of command /slimechunkplus slimecheck.
     default: op

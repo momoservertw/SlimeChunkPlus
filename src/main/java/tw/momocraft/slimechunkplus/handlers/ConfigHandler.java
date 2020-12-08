@@ -22,7 +22,7 @@ public class ConfigHandler {
         setDepends(new DependAPI());
         setConfigPath(new ConfigPath());
         if (!reload) {
-            //setUpdater(new UpdateHandler());
+            setUpdater(new UpdateHandler());
         }
         setLogger(new Logger());
         setZip(new Zip());
