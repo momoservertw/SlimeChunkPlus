@@ -1,8 +1,13 @@
 package tw.momocraft.slimechunkplus.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 import tw.momocraft.slimechunkplus.handlers.ServerHandler;
 
@@ -86,6 +91,14 @@ public class CustomCommands {
                 input = input.replace("message: ", "");
                 dispatchMessageCommand(player, input);
                 return;
+            } else if (input.startsWith("sound:")) {
+                input = input.replace("sound: ", "");
+                dispatchSoundCommand(player, input);
+                return;
+            } else if (input.startsWith("particle:")) {
+                input = input.replace("particle: ", "");
+                dispatchParticleCommand(player, input);
+                return;
             }
             dispatchConsoleCommand(null, input);
         }
@@ -131,6 +144,12 @@ public class CustomCommands {
             return;
         } else if (input.startsWith("chat:")) {
             ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&echat:" + input + "&c\" &8- &cCan not find the execute target.");
+            return;
+        } else if (input.startsWith("sound:")) {
+            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&esound:" + input + "&c\" &8- &cCan not find the execute target.");
+            return;
+        } else if (input.startsWith("particle:")) {
+            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&eparticle:" + input + "&c\" &8- &cCan not find the execute target.");
             return;
         }
         dispatchConsoleCommand(null, input);
@@ -237,6 +256,67 @@ public class CustomCommands {
             BungeeCord.ExecuteCommand(player, command);
         } catch (Exception e) {
             ServerHandler.sendErrorMessage("&cThere was an issue executing an item's command to BungeeCord, if this continues please report it to the developer!");
+            ServerHandler.sendDebugTrace(e);
+        }
+    }
+
+    /**
+     * To send sound to player.
+     */
+    private static void dispatchSoundCommand(Player player, String command) {
+        try {
+            Location loc = player.getLocation();
+            SoundMap soundMap = ConfigHandler.getConfigPath().getSoundProp().get(command);
+            Sound sound = Sound.valueOf(soundMap.getType());
+            int times = soundMap.getTimes();
+            int interval = soundMap.getInterval();
+            long volume = soundMap.getVolume();
+            long pitch = soundMap.getPitch();
+            new BukkitRunnable() {
+                int i = 1;
+
+                @Override
+                public void run() {
+                    if (i > times) {
+                        cancel();
+                    } else {
+                        ++i;
+                        player.playSound(loc, sound, volume, pitch);
+                    }
+                }
+            }.runTaskTimer(SlimeChunkPlus.getInstance(), 0, interval);
+        } catch (Exception e) {
+            ServerHandler.sendErrorMessage("&cThere was an issue executing a command to send sound, if this continues please report it to the developer!");
+            ServerHandler.sendDebugTrace(e);
+        }
+    }
+
+    /**
+     * To send particle to player.
+     */
+    private static void dispatchParticleCommand(Player player, String command) {
+        try {
+            Location loc = player.getLocation();
+            ParticleMap particleMap = ConfigHandler.getConfigPath().getParticleProp().get(command);
+            Particle particle = Particle.valueOf(particleMap.getType());
+            int amount = particleMap.getAmount();
+            int times = particleMap.getTimes();
+            int interval = particleMap.getInterval();
+            new BukkitRunnable() {
+                int i = 1;
+
+                @Override
+                public void run() {
+                    if (i > times) {
+                        cancel();
+                    } else {
+                        ++i;
+                        player.spawnParticle(particle, loc, amount, 0, 0, 0, 0);
+                    }
+                }
+            }.runTaskTimer(SlimeChunkPlus.getInstance(), 0, interval);
+        } catch (Exception e) {
+            ServerHandler.sendErrorMessage("&cThere was an issue executing a command to send particle, if this continues please report it to the developer!");
             ServerHandler.sendDebugTrace(e);
         }
     }

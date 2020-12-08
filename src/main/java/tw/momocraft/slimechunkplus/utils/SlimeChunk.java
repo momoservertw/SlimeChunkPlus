@@ -4,8 +4,6 @@ import javafx.util.Pair;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 import tw.momocraft.slimechunkplus.handlers.ServerHandler;
 
@@ -26,56 +24,8 @@ public class SlimeChunk {
                 Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkFound", player);
             }
             CustomCommands.executeMultiCmdsList(player, ConfigHandler.getConfigPath().getSCSucCmds(), true);
-
-            List<String> sounds = ConfigHandler.getConfigPath().getSCSucSounds();
-            if (!sounds.isEmpty()) {
-                for (String group : sounds) {
-                    SoundMap soundMap = ConfigHandler.getConfigPath().getSoundProp().get(group);
-                    Sound sound = Sound.valueOf(soundMap.getType());
-                    int times = soundMap.getTimes();
-                    int interval = soundMap.getInterval();
-                    long volume = soundMap.getVolume();
-                    long pitch = soundMap.getPitch();
-                    new BukkitRunnable() {
-                        int i = 1;
-
-                        @Override
-                        public void run() {
-                            if (i > times) {
-                                cancel();
-                            } else {
-                                ++i;
-                                player.playSound(loc, sound, volume, pitch);
-                            }
-                        }
-                    }.runTaskTimer(SlimeChunkPlus.getInstance(), 0, interval);
-                }
-            }
-            List<String> particles = ConfigHandler.getConfigPath().getSCSucParticles();
-            if (!particles.isEmpty()) {
-                for (String particleType : particles) {
-                    ParticleMap particleMap = ConfigHandler.getConfigPath().getParticleProp().get(particleType);
-                    Particle particle = Particle.valueOf(particleMap.getType());
-                    int amount = particleMap.getAmount();
-                    int times = particleMap.getTimes();
-                    int interval = particleMap.getInterval();
-                    new BukkitRunnable() {
-                        int i = 1;
-
-                        @Override
-                        public void run() {
-                            if (i > times) {
-                                cancel();
-                            } else {
-                                ++i;
-                                player.spawnParticle(particle, loc, amount, 0, 0, 0, 0);
-                            }
-                        }
-                    }.runTaskTimer(SlimeChunkPlus.getInstance(), 0, interval);
-                }
-                ServerHandler.sendFeatureMessage("Slime-Chunk", player.getName(), "final", "success",
-                        new Throwable().getStackTrace()[0]);
-            }
+            ServerHandler.sendFeatureMessage("Slime-Chunk", player.getName(), "final", "success",
+                    new Throwable().getStackTrace()[0]);
         } else {
             if (ConfigHandler.getConfigPath().isSCFaiMsg()) {
                 Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNotFound", player);
@@ -90,53 +40,6 @@ public class SlimeChunk {
                     Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNearInfo", player, placeHolders);
                 } else {
                     Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNearInfoNull", player);
-                }
-            }
-            List<String> sounds = ConfigHandler.getConfigPath().getSCFaiSounds();
-            if (!sounds.isEmpty()) {
-                for (String group : sounds) {
-                    SoundMap soundMap = ConfigHandler.getConfigPath().getSoundProp().get(group);
-                    Sound sound = Sound.valueOf(soundMap.getType());
-                    int times = soundMap.getTimes();
-                    int interval = soundMap.getInterval();
-                    long volume = soundMap.getVolume();
-                    long pitch = soundMap.getPitch();
-                    new BukkitRunnable() {
-                        int i = 1;
-
-                        @Override
-                        public void run() {
-                            if (i > times) {
-                                cancel();
-                            } else {
-                                ++i;
-                                player.playSound(loc, sound, volume, pitch);
-                            }
-                        }
-                    }.runTaskTimer(SlimeChunkPlus.getInstance(), 0, interval);
-                }
-            }
-            List<String> particles = ConfigHandler.getConfigPath().getSCFaiParticles();
-            if (!particles.isEmpty()) {
-                for (String particleType : particles) {
-                    ParticleMap particleMap = ConfigHandler.getConfigPath().getParticleProp().get(particleType);
-                    Particle particle = Particle.valueOf(particleMap.getType());
-                    int amount = particleMap.getAmount();
-                    int times = particleMap.getTimes();
-                    int interval = particleMap.getInterval();
-                    new BukkitRunnable() {
-                        int i = 1;
-
-                        @Override
-                        public void run() {
-                            if (i > times) {
-                                cancel();
-                            } else {
-                                ++i;
-                                player.spawnParticle(particle, loc, amount, 0, 0, 0, 0);
-                            }
-                        }
-                    }.runTaskTimer(SlimeChunkPlus.getInstance(), 0, interval);
                 }
             }
             ServerHandler.sendFeatureMessage("Slime-Chunk", player.getName(), "final", "fail",

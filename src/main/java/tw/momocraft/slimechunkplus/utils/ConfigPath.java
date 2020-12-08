@@ -30,10 +30,6 @@ public class ConfigPath {
     private List<String> sCFaiCmds;
     private boolean sCNearInfo;
     private int sCNearInfoRange;
-    private List<String> sCSucParticles;
-    private List<String> sCFaiParticles;
-    private List<String> sCSucSounds;
-    private List<String> sCFaiSounds;
 
     //  ============================================== //
     //         Setup all configuration.                //
@@ -91,10 +87,6 @@ public class ConfigPath {
         sCFaiCmds = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Failed.Commands");
         sCNearInfo = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Succeed.Nearby-Information.Enable");
         sCNearInfoRange = ConfigHandler.getConfig("config.yml").getInt("Slime-Chunk.Succeed.Nearby-Information.Range");
-        sCSucParticles = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Succeed.Particles");
-        sCSucSounds = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Succeed.Sounds");
-        sCFaiParticles = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Failed.Particles");
-        sCFaiSounds = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Failed.Sounds");
     }
 
     //  ============================================== //
@@ -113,7 +105,6 @@ public class ConfigPath {
     //  ============================================== //
     //         Slime Chunk Settings                    //
     //  ============================================== //
-
     public boolean isSlimeChunk() {
         return slimeChunk;
     }
@@ -140,21 +131,5 @@ public class ConfigPath {
 
     public List<String> getSCSucCmds() {
         return sCSucCmds;
-    }
-
-    public List<String> getSCSucParticles() {
-        return sCSucParticles;
-    }
-
-    public List<String> getSCFaiParticles() {
-        return sCFaiParticles;
-    }
-
-    public List<String> getSCSucSounds() {
-        return sCSucSounds;
-    }
-
-    public List<String> getSCFaiSounds() {
-        return sCFaiSounds;
     }
 }

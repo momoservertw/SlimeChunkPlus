@@ -109,18 +109,14 @@ public class Commands implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("checkslime")) {
                     if (PermissionsHandler.hasPermission(sender, "slimechunkplus.command.checkslime.other")) {
                         if (ConfigHandler.getConfigPath().isSlimeChunk()) {
-                            if (sender instanceof ConsoleCommandSender) {
-                                Language.sendLangMessage("Message.onlyPlayer", sender);
-                            } else {
-                                Player player = PlayerHandler.getPlayerString(args[1]);
-                                String[] placeHolders = Language.newString();
-                                placeHolders[2] = args[1];
-                                if (player == null) {
-                                    Language.sendLangMessage("Message.targetNotFound", sender, placeHolders);
-                                    return true;
-                                }
-                                SlimeChunk.startCheck(sender, player);
+                            Player player = PlayerHandler.getPlayerString(args[1]);
+                            String[] placeHolders = Language.newString();
+                            placeHolders[2] = args[1];
+                            if (player == null) {
+                                Language.sendLangMessage("Message.targetNotFound", sender, placeHolders);
+                                return true;
                             }
+                            SlimeChunk.startCheck(sender, player);
                         } else {
                             Language.sendLangMessage("Message.featureDisabled", sender);
                         }
