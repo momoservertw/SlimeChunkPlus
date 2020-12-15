@@ -1,11 +1,8 @@
 package tw.momocraft.slimechunkplus.utils;
 
-import org.bukkit.configuration.ConfigurationSection;
 import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class ConfigPath {
@@ -14,14 +11,21 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         General Settings                        //
+    //         Message Variables                       //
     //  ============================================== //
-    private final Map<String, String> customCmdProp = new HashMap<>();
-    private final Map<String, SoundMap> soundProp = new HashMap<>();
-    private final Map<String, ParticleMap> particleProp = new HashMap<>();
+    private String msgTitle;
+    private String msgHelp;
+    private String msgReload;
+    private String msgVersion;
+    private String msgCheckSlime;
+    private String msgCheckSlimeOther;
+    private String msgSlimeChunkFound;
+    private String msgSlimeChunkNotFound;
+    private String msgSlimeChunkNearInfo;
+    private String msgSlimeChunkNearInfoNull;
 
     //  ============================================== //
-    //         CleanSlot Settings                      //
+    //         Slime Chunk Variables                   //
     //  ============================================== //
     private boolean slimeChunk;
     private boolean sCSucMsg;
@@ -32,52 +36,31 @@ public class ConfigPath {
     private int sCNearInfoRange;
 
     //  ============================================== //
-    //         Setup all configuration.                //
+    //         Setup all configuration                 //
     //  ============================================== //
     private void setUp() {
-        setGeneral();
+        setupMsg();
         setupSlimeChunk();
     }
 
     //  ============================================== //
-    //         Setup General.                          //
+    //         Message Setter                          //
     //  ============================================== //
-    private void setGeneral() {
-        ConfigurationSection cmdConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Custom-Commands");
-        if (cmdConfig != null) {
-            for (String group : cmdConfig.getKeys(false)) {
-                customCmdProp.put(group, ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands." + group));
-            }
-        }
-        ConfigurationSection particleConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Particles");
-        if (particleConfig != null) {
-            ParticleMap particleMap;
-            for (String group : particleConfig.getKeys(false)) {
-                particleMap = new ParticleMap();
-                particleMap.setType(ConfigHandler.getConfig("config.yml").getString("General.Particles." + group + ".Type"));
-                particleMap.setAmount(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Amount", 1));
-                particleMap.setTimes(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Times", 1));
-                particleMap.setInterval(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Interval", 20));
-                particleProp.put(group, particleMap);
-            }
-        }
-        ConfigurationSection soundConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Sounds");
-        if (soundConfig != null) {
-            SoundMap soundMap;
-            for (String group : soundConfig.getKeys(false)) {
-                soundMap = new SoundMap();
-                soundMap.setType(ConfigHandler.getConfig("config.yml").getString("General.Sounds." + group + ".Type"));
-                soundMap.setVolume(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Volume", 1));
-                soundMap.setPitch(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Pitch", 1));
-                soundMap.setTimes(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Loop.Times", 1));
-                soundMap.setInterval(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Loop.Interval", 20));
-                soundProp.put(group, soundMap);
-            }
-        }
+    private void setupMsg() {
+        msgTitle = ConfigHandler.getConfig("config.yml").getString("Message.Commands.title");
+        msgHelp = ConfigHandler.getConfig("config.yml").getString("Message.Commands.help");
+        msgReload = ConfigHandler.getConfig("config.yml").getString("Message.Commands.reload");
+        msgVersion = ConfigHandler.getConfig("config.yml").getString("Message.Commands.version");
+        msgCheckSlime = ConfigHandler.getConfig("config.yml").getString("Message.Commands.checkslime");
+        msgCheckSlimeOther = ConfigHandler.getConfig("config.yml").getString("Message.Commands.checkslimeOther");
+        msgSlimeChunkFound = ConfigHandler.getConfig("config.yml").getString("Message.slimeChunkFound");
+        msgSlimeChunkNotFound = ConfigHandler.getConfig("config.yml").getString("Message.slimeChunkNotFound");
+        msgSlimeChunkNearInfo = ConfigHandler.getConfig("config.yml").getString("Message.slimeChunkNearInfo");
+        msgSlimeChunkNearInfoNull = ConfigHandler.getConfig("config.yml").getString("Message.slimeChunkNearInfoNull");
     }
 
     //  ============================================== //
-    //         Slime Chunk Settings                    //
+    //         Slime Chunk Setter                      //
     //  ============================================== //
     private void setupSlimeChunk() {
         slimeChunk = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Enable");
@@ -90,46 +73,76 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         General Settings                        //
+    //         Message Getter                          //
     //  ============================================== //
-    public Map<String, String> getCustomCmdProp() {
-        return customCmdProp;
+    public String getMsgTitle() {
+        return msgTitle;
     }
-    public Map<String, ParticleMap> getParticleProp() {
-        return particleProp;
+
+    public String getMsgHelp() {
+        return msgHelp;
     }
-    public Map<String, SoundMap> getSoundProp() {
-        return soundProp;
+
+    public String getMsgReload() {
+        return msgReload;
+    }
+
+    public String getMsgVersion() {
+        return msgVersion;
+    }
+
+    public String getMsgCheckSlime() {
+        return msgCheckSlime;
+    }
+
+    public String getMsgCheckSlimeOther() {
+        return msgCheckSlimeOther;
+    }
+
+    public String getMsgSlimeChunkFound() {
+        return msgSlimeChunkFound;
+    }
+
+    public String getMsgSlimeChunkNotFound() {
+        return msgSlimeChunkNotFound;
+    }
+
+    public String getMsgSlimeChunkNearInfo() {
+        return msgSlimeChunkNearInfo;
+    }
+
+    public String getMsgSlimeChunkNearInfoNull() {
+        return msgSlimeChunkNearInfoNull;
     }
 
     //  ============================================== //
-    //         Slime Chunk Settings                    //
+    //         Slime Chunk Getter                      //
     //  ============================================== //
     public boolean isSlimeChunk() {
         return slimeChunk;
     }
 
-    public boolean isSCFaiMsg() {
-        return sCFaiMsg;
-    }
-
-    public boolean isSCNearInfo() {
-        return sCNearInfo;
-    }
-
-    public boolean isSCSucMsg() {
+    public boolean issCSucMsg() {
         return sCSucMsg;
     }
 
-    public int getSCNearInfoRange() {
-        return sCNearInfoRange;
+    public List<String> getsCSucCmds() {
+        return sCSucCmds;
     }
 
-    public List<String> getSCFaiCmds() {
+    public boolean issCFaiMsg() {
+        return sCFaiMsg;
+    }
+
+    public List<String> getsCFaiCmds() {
         return sCFaiCmds;
     }
 
-    public List<String> getSCSucCmds() {
-        return sCSucCmds;
+    public boolean issCNearInfo() {
+        return sCNearInfo;
+    }
+
+    public int getsCNearInfoRange() {
+        return sCNearInfoRange;
     }
 }

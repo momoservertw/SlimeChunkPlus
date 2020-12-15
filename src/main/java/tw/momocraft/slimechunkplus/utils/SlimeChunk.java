@@ -4,8 +4,8 @@ import javafx.util.Pair;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
-import tw.momocraft.slimechunkplus.handlers.ServerHandler;
 
 import java.util.*;
 
@@ -20,29 +20,29 @@ public class SlimeChunk {
         }
         Location loc = player.getLocation();
         if (loc.getChunk().isSlimeChunk()) {
-            if (ConfigHandler.getConfigPath().isSCSucMsg()) {
-                Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkFound", player);
+            if (ConfigHandler.getConfigPath().issCSucMsg()) {
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkFound(), player);
             }
-            CustomCommands.executeMultiCmdsList(player, ConfigHandler.getConfigPath().getSCSucCmds(), true);
-            ServerHandler.sendFeatureMessage("Slime-Chunk", player.getName(), "final", "success",
+            CorePlusAPI.getCommandManager().executeMultiCmdsList(ConfigHandler.getPrefix(), player, ConfigHandler.getConfigPath().getsCSucCmds(), true);
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Slime-Chunk", player.getName(), "final", "success",
                     new Throwable().getStackTrace()[0]);
         } else {
-            if (ConfigHandler.getConfigPath().isSCFaiMsg()) {
-                Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNotFound", player);
+            if (ConfigHandler.getConfigPath().issCFaiMsg()) {
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkNotFound(), player);
             }
-            CustomCommands.executeMultiCmdsList(player, ConfigHandler.getConfigPath().getSCFaiCmds(), true);
-            if (ConfigHandler.getConfigPath().isSCNearInfo()) {
-                List<Pair<Integer, Integer>> chunkList = getSlimeChunksAround(loc, ConfigHandler.getConfigPath().getSCNearInfoRange());
+            CorePlusAPI.getCommandManager().executeMultiCmdsList(ConfigHandler.getPrefix(), player, ConfigHandler.getConfigPath().getsCFaiCmds(), true);
+            if (ConfigHandler.getConfigPath().issCNearInfo()) {
+                List<Pair<Integer, Integer>> chunkList = getSlimeChunksAround(loc, ConfigHandler.getConfigPath().getsCNearInfoRange());
                 if (!chunkList.isEmpty()) {
-                    String[] placeHolders = Language.newString();
-                    placeHolders[6] = String.valueOf(chunkList.size());
-                    placeHolders[7] = String.valueOf(getNearestDistance(chunkList));
-                    Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNearInfo", player, placeHolders);
+                    String[] placeHolders = CorePlusAPI.getLangManager().newString();
+                    placeHolders[8] = String.valueOf(chunkList.size()); // %amount%
+                    placeHolders[11] = String.valueOf(getNearestDistance(chunkList)); // %distance%
+                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfo(), player, placeHolders);
                 } else {
-                    Language.sendLangMessage("Message.SlimeChunkPlus.slimeChunkNearInfoNull", player);
+                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfoNull(), player);
                 }
             }
-            ServerHandler.sendFeatureMessage("Slime-Chunk", player.getName(), "final", "fail",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Slime-Chunk", player.getName(), "final", "fail",
                     new Throwable().getStackTrace()[0]);
         }
     }
@@ -68,7 +68,7 @@ public class SlimeChunk {
                 }
             }
         } catch (Exception ex) {
-            ServerHandler.sendDebugTrace(ex);
+            CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), ex);
         }
         return chunkList;
     }

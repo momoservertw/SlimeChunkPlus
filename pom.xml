@@ -6,7 +6,7 @@
 
     <groupId>momocraft.tw</groupId>
     <artifactId>SlimeChunkPlus</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <build>
         <plugins>
             <plugin>
@@ -31,11 +31,6 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <!--PlaceholderAPI Repo-->
-        <repository>
-            <id>placeholderapi</id>
-            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
     </repositories>
     <dependencies>
         <!--Spigot API-->
@@ -52,28 +47,13 @@
             <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
-        <!--Vault API-->
+        <!--CorePlus API-->
         <dependency>
-            <groupId>net.milkbowl.vault</groupId>
-            <artifactId>Vault</artifactId>
+            <groupId>momocraft.tw</groupId>
+            <artifactId>CorePlus</artifactId>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/slimechunkplus/extra/VaultAPI.jar</systemPath>
-            <version>LATEST</version>
-        </dependency>
-        <!--PlayerPoints API-->
-        <dependency>
-            <groupId>org.black_ixx</groupId>
-            <artifactId>PlayerPoints</artifactId>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/slimechunkplus/extra/PlayerPoints.jar</systemPath>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/slimechunkplus/extra/CorePlus-1.0.0.jar</systemPath>
             <version>LEGACY</version>
-        </dependency>
-        <!--PlaceholderAPI API-->
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>LATEST</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

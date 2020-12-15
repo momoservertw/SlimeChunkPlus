@@ -1,27 +1,27 @@
 package tw.momocraft.slimechunkplus;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 import tw.momocraft.slimechunkplus.handlers.RegisterHandler;
-import tw.momocraft.slimechunkplus.handlers.ServerHandler;
 
 public class SlimeChunkPlus extends JavaPlugin {
-    private static tw.momocraft.slimechunkplus.SlimeChunkPlus instance;
+    private static SlimeChunkPlus instance;
 
     @Override
     public void onEnable() {
         instance = this;
         ConfigHandler.generateData(false);
         RegisterHandler.registerEvents();
-        ServerHandler.sendConsoleMessage("&fhas been Enabled.");
+        CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPrefix(),"&fhas been Enabled.");
     }
 
     @Override
     public void onDisable() {
-        ServerHandler.sendConsoleMessage("&fhas been Disabled.");
+        CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPrefix(),"&fhas been Disabled.");
     }
 
-    public static tw.momocraft.slimechunkplus.SlimeChunkPlus getInstance() {
+    public static SlimeChunkPlus getInstance() {
         return instance;
     }
 }

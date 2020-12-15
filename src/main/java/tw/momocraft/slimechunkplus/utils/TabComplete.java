@@ -6,8 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
-import tw.momocraft.slimechunkplus.handlers.PermissionsHandler;
-import tw.momocraft.slimechunkplus.handlers.ServerHandler;
+import tw.momocraft.coreplus.api.CorePlusAPI;
+import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,22 +24,22 @@ public class TabComplete implements TabCompleter {
         Player[] playersOnlineOld;
         switch (args.length) {
             case 1:
-                if (PermissionsHandler.hasPermission(sender, "slimechunkplus.use")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.use")) {
                     commands.add("help");
                 }
-                if (PermissionsHandler.hasPermission(sender, "slimechunkplus.command.reload")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.reload")) {
                     commands.add("reload");
                 }
-                if (PermissionsHandler.hasPermission(sender, "slimechunkplus.command.version")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.version")) {
                     commands.add("version");
                 }
-                if (PermissionsHandler.hasPermission(sender, "slimechunkplus.command.checkslime")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.checkslime")) {
                     commands.add("checkslime");
                 }
                 break;
             case 2:
                 // /scp checkslime PLAYER
-                if (args[0].equalsIgnoreCase("checkslime") && PermissionsHandler.hasPermission(sender, "slimechunkplus.command.checkslime.other")) {
+                if (args[0].equalsIgnoreCase("checkslime") && CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.checkslime.other")) {
                     try {
                         if (Bukkit.class.getMethod("getOnlinePlayers").getReturnType() == Collection.class) {
                             if (Bukkit.class.getMethod("getOnlinePlayers").getReturnType() == Collection.class) {
@@ -55,7 +55,7 @@ public class TabComplete implements TabCompleter {
                             }
                         }
                     } catch (Exception e) {
-                        ServerHandler.sendDebugTrace(e);
+                        CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
                     }
                 }
                 break;

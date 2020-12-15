@@ -5,7 +5,8 @@ import org.bukkit.block.Block;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import tw.momocraft.slimechunkplus.handlers.ServerHandler;
+import tw.momocraft.coreplus.api.CorePlusAPI;
+import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 
 import java.util.*;
 
@@ -43,37 +44,37 @@ public class Utils {
             try {
                 input = input.replace("%player%", playerName);
             } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
+                CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
             }
             // %player_display_name%
             try {
                 input = input.replace("%player_display_name%", player.getDisplayName());
             } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
+                CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
             }
             // %player_uuid%
             try {
                 input = input.replace("%player_uuid%", player.getUniqueId().toString());
             } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
+                CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
             }
             // %player_interact%
             try {
                 input = input.replace("%player_interact%", getNearbyPlayer(player, 3));
             } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
+                CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
             }
             // %player_sneaking%
             try {
                 input = input.replace("%player_sneaking%", String.valueOf(player.isSneaking()));
             } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
+                CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
             }
             // %player_flying%
             try {
                 input = input.replace("%player_flying%", String.valueOf(player.isFlying()));
             } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
+                CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
             }
             Location loc = player.getLocation();
             // %player_world%
@@ -113,7 +114,7 @@ public class Utils {
                     input = input.replace("%player_loc_y%", loc_y);
                     input = input.replace("%player_loc_z%", loc_z);
                 } catch (Exception e) {
-                    ServerHandler.sendDebugTrace(e);
+                    CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
                 }
             }
         }
@@ -122,7 +123,7 @@ public class Utils {
             try {
                 input = input.replace("%player%", "CONSOLE");
             } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
+                CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPrefix(), e);
             }
         }
         // Translate color codes.

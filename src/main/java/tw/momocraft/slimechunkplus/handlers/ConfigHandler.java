@@ -1,7 +1,10 @@
 package tw.momocraft.slimechunkplus.handlers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import tw.momocraft.coreplus.api.CorePlusAPI;
+import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.utils.*;
 
 import java.io.File;
@@ -9,23 +12,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ConfigHandler {
-
     private static YamlConfiguration configYAML;
-    private static DependAPI depends;
-    private static ConfigPath configPath;
-    private static UpdateHandler updater;
-    private static Logger logger;
-    private static Zip ziper;
+    private static ConfigPath configPaths;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
-        setDepends(new DependAPI());
         setConfigPath(new ConfigPath());
         if (!reload) {
-            setUpdater(new UpdateHandler());
+            CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(), SlimeChunkPlus.getInstance().getDescription().getName(), SlimeChunkPlus.getInstance().getDescription().getVersion());
         }
-        setLogger(new Logger());
-        setZip(new Zip());
     }
 
     public static FileConfiguration getConfig(String fileName) {
@@ -50,7 +45,7 @@ public class ConfigHandler {
             try {
                 tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
-                ServerHandler.sendErrorMessage("&cCannot save " + fileName + " to disk!");
+                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPrefix(), "&cCannot save " + fileName + " to disk!");
                 return;
             }
         }
@@ -91,54 +86,22 @@ public class ConfigHandler {
                     File configFile = new File(filePath, fileName);
                     configFile.delete();
                     getConfigData(filePath, fileName);
-                    ServerHandler.sendConsoleMessage("&4The file \"" + fileName + "\" is out of date, generating a new one!");
+                    CorePlusAPI.getLangManager().sendConsoleMsg(getPrefix(), "&4The file \"" + fileName + "\" is out of date, generating a new one!");
                 }
             }
         }
         getConfig(fileName).options().copyDefaults(false);
     }
 
-    public static DependAPI getDepends() {
-        return depends;
-    }
-
-    private static void setDepends(DependAPI depend) {
-        depends = depend;
-    }
-
     private static void setConfigPath(ConfigPath configPath) {
-        ConfigHandler.configPath = configPath;
+        configPaths = configPath;
     }
 
     public static ConfigPath getConfigPath() {
-        return configPath;
+        return configPaths;
     }
 
-    public static boolean isDebugging() {
-        return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
-    }
-
-    public static UpdateHandler getUpdater() {
-        return updater;
-    }
-
-    private static void setUpdater(UpdateHandler update) {
-        updater = update;
-    }
-
-    private static void setLogger(Logger log) {
-        logger = log;
-    }
-
-    public static Logger getLogger() {
-        return logger;
-    }
-
-    private static void setZip(Zip zip) {
-        ziper = zip;
-    }
-
-    public static Zip getZip() {
-        return ziper;
+    public static String getPrefix() {
+        return getConfig("config.yml").getString("Message.prefix");
     }
 }
