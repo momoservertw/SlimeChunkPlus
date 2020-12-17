@@ -2,7 +2,7 @@ package tw.momocraft.slimechunkplus.handlers;
 
 import tw.momocraft.slimechunkplus.Commands;
 import tw.momocraft.slimechunkplus.SlimeChunkPlus;
-import tw.momocraft.slimechunkplus.utils.TabComplete;
+import tw.momocraft.slimechunkplus.TabComplete;
 
 
 public class RegisterHandler {

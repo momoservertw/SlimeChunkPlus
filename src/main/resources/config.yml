@@ -2,7 +2,7 @@
 #  Spigot: https://www.spigotmc.org/resources/slimechunkplus.86532/
 #  Wiki: https://github.com/momoservertw/SlimeChunkPlus/wiki
 # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-Config-Version: 1
+Config-Version: 2
 Check-Updates: true
 
 # Checking the nearby slime chunk.

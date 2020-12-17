@@ -19,10 +19,8 @@ public class Commands implements CommandExecutor {
                 if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.use")) {
                     CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "");
                     CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgTitle(), sender);
-                    if (CorePlusAPI.getPermManager().hasPermission(sender, "SlimeChunkPlus.command.version")) {
-                        CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "&f " + SlimeChunkPlus.getInstance().getDescription().getName()
-                                +" &ev" + SlimeChunkPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
-                    }
+                    CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "&f " + SlimeChunkPlus.getInstance().getDescription().getName()
+                            +" &ev" + SlimeChunkPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
                     CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgHelp(), sender);
                     CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "");
                 } else {
@@ -34,21 +32,19 @@ public class Commands implements CommandExecutor {
                     if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.use")) {
                         CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "");
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgTitle(), sender);
-                        if (CorePlusAPI.getPermManager().hasPermission(sender, "SlimeChunkPlus.command.version")) {
-                            CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "&f " + SlimeChunkPlus.getInstance().getDescription().getName()
-                                    +" &ev" + SlimeChunkPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
-                        }
+                        CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "&f " + SlimeChunkPlus.getInstance().getDescription().getName()
+                                +" &ev" + SlimeChunkPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgHelp(), sender);
-                        if (CorePlusAPI.getPermManager().hasPermission(sender, "SlimeChunkPlus.command.reload")) {
+                        if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.reload")) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgReload(), sender);
                         }
-                        if (CorePlusAPI.getPermManager().hasPermission(sender, "SlimeChunkPlus.command.version")) {
+                        if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.version")) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgVersion(), sender);
                         }
-                        if (CorePlusAPI.getPermManager().hasPermission(sender, "SlimeChunkPlus.command.checkslime.other")) {
+                        if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.checkslime.other")) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(),ConfigHandler.getConfigPath().getMsgCheckSlime(), sender);
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(),ConfigHandler.getConfigPath().getMsgCheckSlimeOther(), sender);
-                        } else if (CorePlusAPI.getPermManager().hasPermission(sender, "SlimeChunkPlus.command.checkslime")) {
+                        } else if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.checkslime")) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(),ConfigHandler.getConfigPath().getMsgCheckSlime(), sender);
                         }
                         CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "");
@@ -98,7 +94,7 @@ public class Commands implements CommandExecutor {
                         if (ConfigHandler.getConfigPath().isSlimeChunk()) {
                             Player player = CorePlusAPI.getPlayerManager().getPlayerString(args[1]);
                             String[] placeHolders = CorePlusAPI.getLangManager().newString();
-                            placeHolders[2] = args[1];
+                            placeHolders[2] = args[1]; // %targetplayer%
                             if (player == null) {
                                 CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.targetNotFound", sender, placeHolders);
                                 return true;

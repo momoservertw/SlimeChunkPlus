@@ -19,7 +19,9 @@ public class ConfigHandler {
         genConfigFile("config.yml");
         setConfigPath(new ConfigPath());
         if (!reload) {
-            CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(), SlimeChunkPlus.getInstance().getDescription().getName(), SlimeChunkPlus.getInstance().getDescription().getVersion());
+            CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(),
+                    SlimeChunkPlus.getInstance().getDescription().getName(),
+                    SlimeChunkPlus.getInstance().getDescription().getVersion());
         }
     }
 
@@ -69,7 +71,7 @@ public class ConfigHandler {
         File filePath = tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().getDataFolder();
         switch (fileName) {
             case "config.yml":
-                configVer = 1;
+                configVer = 2;
                 break;
         }
         getConfigData(filePath, fileName);

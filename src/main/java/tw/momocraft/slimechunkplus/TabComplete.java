@@ -1,4 +1,4 @@
-package tw.momocraft.slimechunkplus.utils;
+package tw.momocraft.slimechunkplus;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
