@@ -24,22 +24,22 @@ public class TabComplete implements TabCompleter {
         Player[] playersOnlineOld;
         switch (args.length) {
             case 1:
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.use")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "slimechunkplus.use")) {
                     commands.add("help");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.reload")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "slimechunkplus.command.reload")) {
                     commands.add("reload");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.version")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "slimechunkplus.command.version")) {
                     commands.add("version");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.checkslime")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "slimechunkplus.command.checkslime")) {
                     commands.add("checkslime");
                 }
                 break;
             case 2:
                 // /scp checkslime PLAYER
-                if (args[0].equalsIgnoreCase("checkslime") && CorePlusAPI.getPermManager().hasPermission(sender, "slimechunkplus.command.checkslime.other")) {
+                if (args[0].equalsIgnoreCase("checkslime") && CorePlusAPI.getPlayerManager().hasPermission(sender, "slimechunkplus.command.checkslime.other")) {
                     try {
                         if (Bukkit.class.getMethod("getOnlinePlayers").getReturnType() == Collection.class) {
                             if (Bukkit.class.getMethod("getOnlinePlayers").getReturnType() == Collection.class) {

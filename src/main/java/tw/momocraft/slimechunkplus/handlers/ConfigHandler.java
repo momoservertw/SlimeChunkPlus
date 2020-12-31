@@ -21,7 +21,7 @@ public class ConfigHandler {
         if (!reload) {
             CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(),
                     SlimeChunkPlus.getInstance().getDescription().getName(),
-                    SlimeChunkPlus.getInstance().getDescription().getVersion());
+                    SlimeChunkPlus.getInstance().getDescription().getVersion(), true);
         }
     }
 
@@ -105,5 +105,9 @@ public class ConfigHandler {
 
     public static String getPrefix() {
         return getConfig("config.yml").getString("Message.prefix");
+    }
+
+    public static String getPlugin() {
+        return "[" + SlimeChunkPlus.getInstance().getDescription().getName() + "] ";
     }
 }

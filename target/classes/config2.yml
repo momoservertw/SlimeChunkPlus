@@ -1,10 +1,8 @@
 # ░░░░░░░░░░░░░░░   SlimeChunkPlus, By Momocraft♥   ░░░░░░░░░░░░░░░
 #  Spigot: https://www.spigotmc.org/resources/slimechunkplus.86532/
 #  Wiki: https://github.com/momoservertw/SlimeChunkPlus/wiki
-# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-Config-Version: 1
-Check-Updates: true
-Debugging: false
+# ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+Config-Version: 2
 
 # Checking the nearby slime chunk.
 Slime-Chunk:
