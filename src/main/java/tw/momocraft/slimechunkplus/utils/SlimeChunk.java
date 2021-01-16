@@ -24,7 +24,8 @@ public class SlimeChunk {
                 CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkFound(), player);
             }
             CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), player, ConfigHandler.getConfigPath().getsCSucCmds(), true);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Slime-Chunk", player.getName(), "final", "success",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                    "Slime-Chunk", player.getName(), "final", "success",
                     new Throwable().getStackTrace()[0]);
         } else {
             if (ConfigHandler.getConfigPath().issCFaiMsg()) {
@@ -42,7 +43,8 @@ public class SlimeChunk {
                     CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfoNull(), player);
                 }
             }
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Slime-Chunk", player.getName(), "final", "fail",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                    "Slime-Chunk", player.getName(), "final", "fail",
                     new Throwable().getStackTrace()[0]);
         }
     }
@@ -68,7 +70,7 @@ public class SlimeChunk {
                 }
             }
         } catch (Exception ex) {
-            CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.getPlugin(), ex);
+            CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(), ex);
         }
         return chunkList;
     }

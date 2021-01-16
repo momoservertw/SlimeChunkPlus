@@ -27,7 +27,7 @@ Slime-Chunk:
       - "particle: Flame"
 
 Message:
-  prefix: "&f[&aSLP&f] &r"
+  prefix: "&f[&aSlimeChunkPlus&f] &r"
   Commands:
     title: "&8▩▩▩▩▩▩▩▩▩▩ &dSlimeChunkPlus &8▩▩▩▩▩▩▩▩▩▩"
     help: "&f/scp help &8- &7This help menu."

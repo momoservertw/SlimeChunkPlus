@@ -3,6 +3,7 @@ package tw.momocraft.slimechunkplus.handlers;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import tw.momocraft.coreplus.CorePlus;
 import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.utils.*;
@@ -110,4 +111,13 @@ public class ConfigHandler {
     public static String getPlugin() {
         return "[" + SlimeChunkPlus.getInstance().getDescription().getName() + "] ";
     }
+
+    public static String getPluginName() {
+        return CorePlus.getInstance().getDescription().getName();
+    }
+
+    public static boolean isDebugging() {
+        return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
+    }
+
 }
