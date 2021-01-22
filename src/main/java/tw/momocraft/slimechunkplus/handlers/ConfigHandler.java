@@ -20,7 +20,7 @@ public class ConfigHandler {
         genConfigFile("config.yml");
         setConfigPath(new ConfigPath());
         if (!reload) {
-            CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(),
+            CorePlusAPI.getUpdateManager().check(getPlugin(), Bukkit.getConsoleSender(),
                     SlimeChunkPlus.getInstance().getDescription().getName(),
                     SlimeChunkPlus.getInstance().getDescription().getVersion(), true);
         }
@@ -48,7 +48,7 @@ public class ConfigHandler {
             try {
                 tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
-                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPrefix(), "&cCannot save " + fileName + " to disk!");
+                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPluginName(), "&cCannot save " + fileName + " to disk!");
                 return;
             }
         }
