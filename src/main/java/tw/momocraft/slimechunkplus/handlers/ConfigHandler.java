@@ -14,13 +14,14 @@ import java.time.format.DateTimeFormatter;
 
 public class ConfigHandler {
     private static YamlConfiguration configYAML;
-    private static ConfigPath configPaths;
+    private static Dependence depends;
+    private static ConfigPath configPath;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
         setConfigPath(new ConfigPath());
         if (!reload) {
-            CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(),
+            CorePlusAPI.getUpdateManager().check(getPluginName(), getPrefix(), Bukkit.getConsoleSender(),
                     SlimeChunkPlus.getInstance().getDescription().getName(),
                     SlimeChunkPlus.getInstance().getDescription().getVersion(), true);
         }
@@ -48,7 +49,8 @@ public class ConfigHandler {
             try {
                 tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
-                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPrefix(), "&cCannot save " + fileName + " to disk!");
+                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPrefix(),
+                        "&cCannot save " + fileName + " to disk!");
                 return;
             }
         }
@@ -89,7 +91,8 @@ public class ConfigHandler {
                     File configFile = new File(filePath, fileName);
                     configFile.delete();
                     getConfigData(filePath, fileName);
-                    CorePlusAPI.getLangManager().sendConsoleMsg(getPrefix(), "&4The file \"" + fileName + "\" is out of date, generating a new one!");
+                    CorePlusAPI.getLangManager().sendConsoleMsg(getPrefix(),
+                            "&4The file \"" + fileName + "\" is out of date, generating a new one!");
                 }
             }
         }
@@ -97,11 +100,19 @@ public class ConfigHandler {
     }
 
     private static void setConfigPath(ConfigPath configPath) {
-        configPaths = configPath;
+        ConfigHandler.configPath = configPath;
     }
 
     public static ConfigPath getConfigPath() {
-        return configPaths;
+        return configPath;
+    }
+
+    public static Dependence getDepends() {
+        return depends;
+    }
+
+    private static void setDepends(Dependence depend) {
+        depends = depend;
     }
 
     public static String getPrefix() {

@@ -1,13 +1,16 @@
 package tw.momocraft.slimechunkplus.utils;
 
 import javafx.util.Pair;
-import org.bukkit.*;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SlimeChunk {
 
@@ -21,7 +24,8 @@ public class SlimeChunk {
         Location loc = player.getLocation();
         if (loc.getChunk().isSlimeChunk()) {
             if (ConfigHandler.getConfigPath().issCSucMsg()) {
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkFound(), player);
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+                        ConfigHandler.getConfigPath().getMsgSlimeChunkFound(), player);
             }
             CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), player, ConfigHandler.getConfigPath().getsCSucCmds(), true);
             CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
@@ -29,7 +33,8 @@ public class SlimeChunk {
                     new Throwable().getStackTrace()[0]);
         } else {
             if (ConfigHandler.getConfigPath().issCFaiMsg()) {
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkNotFound(), player);
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+                        ConfigHandler.getConfigPath().getMsgSlimeChunkNotFound(), player);
             }
             CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), player, ConfigHandler.getConfigPath().getsCFaiCmds(), true);
             if (ConfigHandler.getConfigPath().issCNearInfo()) {
@@ -38,9 +43,11 @@ public class SlimeChunk {
                     String[] placeHolders = CorePlusAPI.getLangManager().newString();
                     placeHolders[6] = String.valueOf(chunkList.size()); // %amount%
                     placeHolders[12] = String.valueOf(getNearestDistance(chunkList)); // %distance%
-                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfo(), player, placeHolders);
+                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+                            ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfo(), player, placeHolders);
                 } else {
-                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfoNull(), player);
+                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+                            ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfoNull(), player);
                 }
             }
             CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
