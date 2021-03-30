@@ -16,44 +16,41 @@ public class SlimeChunk {
 
     public static void startCheck(CommandSender sender, Player target) {
         Player player;
-        if (target != null) {
+        if (target != null)
             player = target;
-        } else {
+        else
             player = (Player) sender;
-        }
         Location loc = player.getLocation();
         if (loc.getChunk().isSlimeChunk()) {
-            if (ConfigHandler.getConfigPath().issCSucMsg()) {
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+            if (ConfigHandler.getConfigPath().isSlimeChunkSucceedMsg())
+                CorePlusAPI.getLang().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
                         ConfigHandler.getConfigPath().getMsgSlimeChunkFound(), player);
-            }
-            CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), player, ConfigHandler.getConfigPath().getsCSucCmds(), true);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
-                    "Slime-Chunk", player.getName(), "final", "success",
+            CorePlusAPI.getCmd().sendCmd(player, player, ConfigHandler.getConfigPath().getSlimeChunkSucceedCmds());
+            CorePlusAPI.getLang().sendDetailMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
+                    "Slime-Chunk", player.getName(), "isSlimeChunk", "succeed",
                     new Throwable().getStackTrace()[0]);
-        } else {
-            if (ConfigHandler.getConfigPath().issCFaiMsg()) {
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
-                        ConfigHandler.getConfigPath().getMsgSlimeChunkNotFound(), player);
-            }
-            CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), player, ConfigHandler.getConfigPath().getsCFaiCmds(), true);
-            if (ConfigHandler.getConfigPath().issCNearInfo()) {
-                List<Pair<Integer, Integer>> chunkList = getSlimeChunksAround(loc, ConfigHandler.getConfigPath().getsCNearInfoRange());
-                if (!chunkList.isEmpty()) {
-                    String[] placeHolders = CorePlusAPI.getLangManager().newString();
-                    placeHolders[6] = String.valueOf(chunkList.size()); // %amount%
-                    placeHolders[12] = String.valueOf(getNearestDistance(chunkList)); // %distance%
-                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
-                            ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfo(), player, placeHolders);
-                } else {
-                    CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
-                            ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfoNull(), player);
-                }
-            }
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
-                    "Slime-Chunk", player.getName(), "final", "fail",
-                    new Throwable().getStackTrace()[0]);
+            return;
         }
+        if (ConfigHandler.getConfigPath().isSlimeChunkFailedMsg())
+            CorePlusAPI.getLang().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+                    ConfigHandler.getConfigPath().getMsgSlimeChunkNotFound(), player);
+        CorePlusAPI.getCmd().sendCmd(player, player, ConfigHandler.getConfigPath().getSlimeChunkFailedCmds());
+        if (ConfigHandler.getConfigPath().isSlimeChunkNearInfo()) {
+            List<Pair<Integer, Integer>> chunkList = getSlimeChunksAround(loc, ConfigHandler.getConfigPath().getSlimeChunkNearInfoRange());
+            if (!chunkList.isEmpty()) {
+                String[] placeHolders = CorePlusAPI.getLang().newString();
+                placeHolders[6] = String.valueOf(chunkList.size()); // %amount%
+                placeHolders[12] = String.valueOf(getNearestDistance(loc, chunkList)); // %distance%
+                CorePlusAPI.getLang().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+                        ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfo(), player, placeHolders);
+            } else {
+                CorePlusAPI.getLang().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
+                        ConfigHandler.getConfigPath().getMsgSlimeChunkNearInfoNull(), player);
+            }
+        }
+        CorePlusAPI.getLang().sendDetailMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
+                "Slime-Chunk", player.getName(), "isSlimeChunk", "failed",
+                new Throwable().getStackTrace()[0]);
     }
 
     /**
@@ -71,13 +68,12 @@ public class SlimeChunk {
             for (int x = -range; x <= range; x++) {
                 for (int z = -range; z <= range; z++) {
                     chunk = world.getChunkAt(baseX + x, baseZ + z);
-                    if (chunk.isSlimeChunk()) {
+                    if (chunk.isSlimeChunk())
                         chunkList.add(new Pair<>(x, z));
-                    }
                 }
             }
         } catch (Exception ex) {
-            CorePlusAPI.getLangManager().sendDebugTrace(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(), ex);
+            CorePlusAPI.getLang().sendDebugTrace(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(), ex);
         }
         return chunkList;
     }
@@ -86,17 +82,21 @@ public class SlimeChunk {
      * @param chunkList the slime chunk list.
      * @return the distance of the nearest slime chunk.
      */
-    private static long getNearestDistance(List<Pair<Integer, Integer>> chunkList) {
+    private static double getNearestDistance(Location loc, List<Pair<Integer, Integer>> chunkList) {
+        if (chunkList == null || chunkList.isEmpty())
+            return -1;
         // Comparing all chunk distance.
         double min = 0;
-        double value;
+        double chunkValue;
+        Chunk chunk = null;
         for (Pair<Integer, Integer> pair : chunkList) {
-            value = Math.sqrt(Math.pow(pair.getKey(), 2) + Math.pow(pair.getValue(), 2));
-            if (min == 0 || min > value) {
-                min = value;
+            chunkValue = Math.sqrt(Math.pow(pair.getKey(), 2) + Math.pow(pair.getValue(), 2));
+            if (min == 0 || min > chunkValue) {
+                min = chunkValue;
+                chunk = loc.getWorld().getChunkAt(pair.getKey(), pair.getValue());
             }
         }
-        // To get the chunk distance.
-        return Math.round(min * 16);
+        return CorePlusAPI.getUtils().getDistanceXZ(loc,
+                new Location(chunk.getWorld(), chunk.getX() << 4, 64, chunk.getZ() << 4).add(7, 0, 7));
     }
 }

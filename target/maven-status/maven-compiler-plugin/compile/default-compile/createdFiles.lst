@@ -1,8 +1,8 @@
 tw\momocraft\slimechunkplus\TabComplete.class
-tw\momocraft\slimechunkplus\handlers\RegisterHandler.class
+tw\momocraft\slimechunkplus\handlers\DependHandler.class
+tw\momocraft\slimechunkplus\handlers\UtilsHandler.class
 tw\momocraft\slimechunkplus\handlers\ConfigHandler.class
 tw\momocraft\slimechunkplus\utils\SlimeChunk.class
 tw\momocraft\slimechunkplus\utils\ConfigPath.class
 tw\momocraft\slimechunkplus\Commands.class
 tw\momocraft\slimechunkplus\SlimeChunkPlus.class
-tw\momocraft\slimechunkplus\utils\Dependence.class

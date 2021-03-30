@@ -1,7 +1,12 @@
 package tw.momocraft.slimechunkplus.utils;
 
+import tw.momocraft.coreplus.api.CorePlusAPI;
+import tw.momocraft.coreplus.handlers.UtilsHandler;
+import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.handlers.ConfigHandler;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -28,12 +33,12 @@ public class ConfigPath {
     //         Slime Chunk Variables                   //
     //  ============================================== //
     private boolean slimeChunk;
-    private boolean sCSucMsg;
-    private List<String> sCSucCmds;
-    private boolean sCFaiMsg;
-    private List<String> sCFaiCmds;
-    private boolean sCNearInfo;
-    private int sCNearInfoRange;
+    private boolean slimeChunkSucceedMsg;
+    private List<String> slimeChunkSucceedCmds;
+    private boolean slimeChunkFailedMsg;
+    private List<String> slimeChunkFailedCmds;
+    private boolean slimeChunkNearInfo;
+    private int slimeChunkNearInfoRange;
 
     //  ============================================== //
     //         Setup all configuration                 //
@@ -41,6 +46,21 @@ public class ConfigPath {
     private void setUp() {
         setupMsg();
         setupSlimeChunk();
+
+        sendSetupMsg();
+    }
+
+    private void sendSetupMsg() {
+        List<String> list = new ArrayList<>(SlimeChunkPlus.getInstance().getDescription().getDepend());
+        list.addAll(SlimeChunkPlus.getInstance().getDescription().getSoftDepend());
+        UtilsHandler.getLang().sendHookMsg(ConfigHandler.getPluginPrefix(), "plugins", list);
+
+        list = Arrays.asList((
+                "spawnbypass" + ","
+                        + "spawnerbypass" + ","
+                        + "damagebypass"
+        ).split(","));
+        CorePlusAPI.getLang().sendHookMsg(ConfigHandler.getPluginPrefix(), "Residence flags", list);
     }
 
     //  ============================================== //
@@ -64,12 +84,12 @@ public class ConfigPath {
     //  ============================================== //
     private void setupSlimeChunk() {
         slimeChunk = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Enable");
-        sCSucMsg = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Succeed.Message");
-        sCSucCmds = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Succeed.Commands");
-        sCFaiMsg = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Failed.Message");
-        sCFaiCmds = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Failed.Commands");
-        sCNearInfo = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Succeed.Nearby-Information.Enable");
-        sCNearInfoRange = ConfigHandler.getConfig("config.yml").getInt("Slime-Chunk.Succeed.Nearby-Information.Range");
+        slimeChunkSucceedMsg = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Succeed.Message");
+        slimeChunkSucceedCmds = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Succeed.Commands");
+        slimeChunkFailedMsg = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Failed.Message");
+        slimeChunkFailedCmds = ConfigHandler.getConfig("config.yml").getStringList("Slime-Chunk.Failed.Commands");
+        slimeChunkNearInfo = ConfigHandler.getConfig("config.yml").getBoolean("Slime-Chunk.Succeed.Nearby-Information.Enable");
+        slimeChunkNearInfoRange = ConfigHandler.getConfig("config.yml").getInt("Slime-Chunk.Succeed.Nearby-Information.Range");
     }
 
     //  ============================================== //
@@ -122,27 +142,27 @@ public class ConfigPath {
         return slimeChunk;
     }
 
-    public boolean issCSucMsg() {
-        return sCSucMsg;
+    public boolean isSlimeChunkSucceedMsg() {
+        return slimeChunkSucceedMsg;
     }
 
-    public List<String> getsCSucCmds() {
-        return sCSucCmds;
+    public List<String> getSlimeChunkSucceedCmds() {
+        return slimeChunkSucceedCmds;
     }
 
-    public boolean issCFaiMsg() {
-        return sCFaiMsg;
+    public boolean isSlimeChunkFailedMsg() {
+        return slimeChunkFailedMsg;
     }
 
-    public List<String> getsCFaiCmds() {
-        return sCFaiCmds;
+    public List<String> getSlimeChunkFailedCmds() {
+        return slimeChunkFailedCmds;
     }
 
-    public boolean issCNearInfo() {
-        return sCNearInfo;
+    public boolean isSlimeChunkNearInfo() {
+        return slimeChunkNearInfo;
     }
 
-    public int getsCNearInfoRange() {
-        return sCNearInfoRange;
+    public int getSlimeChunkNearInfoRange() {
+        return slimeChunkNearInfoRange;
     }
 }

@@ -4,10 +4,13 @@ import tw.momocraft.slimechunkplus.Commands;
 import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.TabComplete;
 
+public class DependHandler {
 
-public class RegisterHandler {
+    public DependHandler() {
+        registerEvents();
+    }
 
-    public static void registerEvents() {
+    private void registerEvents() {
         SlimeChunkPlus.getInstance().getCommand("SlimeChunkPlus").setExecutor(new Commands());
         SlimeChunkPlus.getInstance().getCommand("SlimeChunkPlus").setTabCompleter(new TabComplete());
     }

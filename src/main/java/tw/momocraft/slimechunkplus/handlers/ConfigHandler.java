@@ -3,7 +3,6 @@ package tw.momocraft.slimechunkplus.handlers;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import tw.momocraft.coreplus.CorePlus;
 import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.utils.*;
@@ -14,14 +13,14 @@ import java.time.format.DateTimeFormatter;
 
 public class ConfigHandler {
     private static YamlConfiguration configYAML;
-    private static Dependence depends;
     private static ConfigPath configPath;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
+        UtilsHandler.setupFirst(reload);
         setConfigPath(new ConfigPath());
         if (!reload) {
-            CorePlusAPI.getUpdateManager().check(getPluginName(), getPrefix(), Bukkit.getConsoleSender(),
+            CorePlusAPI.getUpdate().check(getPluginName(), getPluginName(), Bukkit.getConsoleSender(),
                     SlimeChunkPlus.getInstance().getDescription().getName(),
                     SlimeChunkPlus.getInstance().getDescription().getVersion(), true);
         }
@@ -49,8 +48,8 @@ public class ConfigHandler {
             try {
                 tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
-                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPrefix(),
-                        "&cCannot save " + fileName + " to disk!");
+                CorePlusAPI.getLang().sendErrorMsg(ConfigHandler.getPrefix(),
+                        "Cannot save " + fileName + " to disk!");
                 return;
             }
         }
@@ -91,7 +90,7 @@ public class ConfigHandler {
                     File configFile = new File(filePath, fileName);
                     configFile.delete();
                     getConfigData(filePath, fileName);
-                    CorePlusAPI.getLangManager().sendConsoleMsg(getPrefix(),
+                    CorePlusAPI.getLang().sendConsoleMsg(getPrefix(),
                             "&4The file \"" + fileName + "\" is out of date, generating a new one!");
                 }
             }
@@ -107,25 +106,19 @@ public class ConfigHandler {
         return configPath;
     }
 
-    public static Dependence getDepends() {
-        return depends;
+
+    public static String getPluginName() {
+        return SlimeChunkPlus.getInstance().getDescription().getName();
     }
 
-    private static void setDepends(Dependence depend) {
-        depends = depend;
+    public static String getPluginPrefix() {
+        return "[" + SlimeChunkPlus.getInstance().getDescription().getName() + "] ";
     }
 
     public static String getPrefix() {
         return getConfig("config.yml").getString("Message.prefix");
     }
 
-    public static String getPlugin() {
-        return "[" + SlimeChunkPlus.getInstance().getDescription().getName() + "] ";
-    }
-
-    public static String getPluginName() {
-        return CorePlus.getInstance().getDescription().getName();
-    }
 
     public static boolean isDebugging() {
         return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
