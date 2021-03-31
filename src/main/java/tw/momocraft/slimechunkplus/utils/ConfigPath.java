@@ -60,7 +60,7 @@ public class ConfigPath {
                         + "spawnerbypass" + ","
                         + "damagebypass"
         ).split(","));
-        CorePlusAPI.getLang().sendHookMsg(ConfigHandler.getPluginPrefix(), "Residence flags", list);
+        CorePlusAPI.getMsg().sendHookMsg(ConfigHandler.getPluginPrefix(), "Residence flags", list);
     }
 
     //  ============================================== //

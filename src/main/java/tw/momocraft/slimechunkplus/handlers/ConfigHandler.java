@@ -20,7 +20,7 @@ public class ConfigHandler {
         UtilsHandler.setupFirst(reload);
         setConfigPath(new ConfigPath());
         if (!reload) {
-            CorePlusAPI.getUpdate().check(getPluginName(), getPluginName(), Bukkit.getConsoleSender(),
+            CorePlusAPI.getUpdate().check(getPlugin(), getPlugin(), Bukkit.getConsoleSender(),
                     SlimeChunkPlus.getInstance().getDescription().getName(),
                     SlimeChunkPlus.getInstance().getDescription().getVersion(), true);
         }
@@ -48,7 +48,7 @@ public class ConfigHandler {
             try {
                 tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
-                CorePlusAPI.getLang().sendErrorMsg(ConfigHandler.getPrefix(),
+                CorePlusAPI.getMsg().sendErrorMsg(ConfigHandler.getPrefix(),
                         "Cannot save " + fileName + " to disk!");
                 return;
             }
@@ -90,7 +90,7 @@ public class ConfigHandler {
                     File configFile = new File(filePath, fileName);
                     configFile.delete();
                     getConfigData(filePath, fileName);
-                    CorePlusAPI.getLang().sendConsoleMsg(getPrefix(),
+                    CorePlusAPI.getMsg().sendConsoleMsg(getPrefix(),
                             "&4The file \"" + fileName + "\" is out of date, generating a new one!");
                 }
             }
@@ -107,7 +107,7 @@ public class ConfigHandler {
     }
 
 
-    public static String getPluginName() {
+    public static String getPlugin() {
         return SlimeChunkPlus.getInstance().getDescription().getName();
     }
 
@@ -120,7 +120,7 @@ public class ConfigHandler {
     }
 
 
-    public static boolean isDebugging() {
+    public static boolean isDebug() {
         return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
     }
 
