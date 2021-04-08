@@ -68,7 +68,7 @@ public class ConfigHandler {
     }
 
     private static void genConfigFile(String fileName) {
-        String[] fileNameSlit = fileName.split("\\.(?=[^\\.]+$)");
+        String[] fileNameSlit = fileName.split("\\.(?=[^.]+$)");
         int configVer = 0;
         File filePath = tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().getDataFolder();
         switch (fileName) {

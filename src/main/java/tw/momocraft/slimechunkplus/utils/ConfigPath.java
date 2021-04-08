@@ -53,7 +53,7 @@ public class ConfigPath {
     private void sendSetupMsg() {
         List<String> list = new ArrayList<>(SlimeChunkPlus.getInstance().getDescription().getDepend());
         list.addAll(SlimeChunkPlus.getInstance().getDescription().getSoftDepend());
-        UtilsHandler.getLang().sendHookMsg(ConfigHandler.getPluginPrefix(), "plugins", list);
+        CorePlusAPI.getMsg().sendHookMsg(ConfigHandler.getPluginPrefix(), "plugins", list);
 
         list = Arrays.asList((
                 "spawnbypass" + ","
