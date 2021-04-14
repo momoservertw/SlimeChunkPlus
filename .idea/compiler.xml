@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LotteryPlus" />
-        <module name="CleanSlotPlus" />
-        <module name="SlimeChunkPlus" />
         <module name="SlimieChunkPlus" />
+        <module name="CleanSlotPlus" />
+        <module name="LotteryPlus" />
+        <module name="SlimeChunkPlus" />
         <module name="InventoryPlus" />
       </profile>
     </annotationProcessing>
