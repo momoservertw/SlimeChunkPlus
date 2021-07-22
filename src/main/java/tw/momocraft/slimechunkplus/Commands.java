@@ -97,7 +97,7 @@ public class Commands implements CommandExecutor {
                 if (args[0].equalsIgnoreCase("checkslime")) {
                     if (CorePlusAPI.getPlayer().hasPerm(sender, "slimechunkplus.command.checkslime.other")) {
                         if (ConfigHandler.getConfigPath().isSlimeChunk()) {
-                            Player player = CorePlusAPI.getPlayer().getPlayerString(args[1]);
+                            Player player = CorePlusAPI.getPlayer().getPlayer(args[1]);
                             String[] placeHolders = CorePlusAPI.getMsg().newString();
                             placeHolders[1] = args[1]; // %targetplayer%
                             if (player == null) {

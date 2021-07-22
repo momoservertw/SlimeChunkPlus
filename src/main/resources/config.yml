@@ -15,16 +15,18 @@ Slime-Chunk:
       # Unit: chunk
       Range: 3
     Commands:
-      - "sound: Succeed"
-      - "sound: SlimeJump"
-      - "particle: Slime"
+      - "message: &fYou are not standing on a slime chunk."
+      - "sound-group: Succeed"
+      - "sound: -s:ENTITY_SLIME_JUMP -t:8 -i:20"
+      - "particle: -p:SLIME -t:8 -i:20"
     # To display current chunk by Selection Visualizer.
     #  - "op: svis chunk"
   Failed:
     Message: true
     Commands:
-      - "sound: Failed"
-      - "particle: Flame"
+      - "message: &aYou are standing on a slime chunk."
+      - "sound: -s:ENTITY_VILLAGER_HURT -t:2 -i:20"
+      - "particle: -p:EXPLOSION_HUGE -t:2 -i:20"
 
 Message:
   prefix: "&f[&aSlimeChunkPlus&f] &r"
@@ -35,7 +37,5 @@ Message:
     version: "&f/scp version &8- &7Checks the plugin version and updates."
     checkslime: "&f/scp checkslime &8- &7To get the information of slime chunks."
     checkslimeOther: "&f/scp checkslime [player] &8- &7To get the information of slime chunks for other player."
-  slimeChunkFound: "&aYou are standing on a slime chunk."
-  slimeChunkNotFound: "&fYou are not standing on a slime chunk."
-  slimeChunkNearInfo: "&eThere are &6%amount% slime blocks &enearby you. &7(Distance: %distance% blocks)"
+  slimeChunkNearInfo: "&eThere are &6%amount% slime chunks &awithin %chunks% chunks!"
   slimeChunkNearInfoNull: "&cThere is no slime chunks nearby you."
