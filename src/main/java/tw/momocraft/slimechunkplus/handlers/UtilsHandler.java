@@ -1,6 +1,5 @@
 package tw.momocraft.slimechunkplus.handlers;
 
-
 public class UtilsHandler {
 
     private static DependHandler dependence;
