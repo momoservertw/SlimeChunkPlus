@@ -4,92 +4,110 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tw.momocraft.coreplus.api.CorePlusAPI;
+import tw.momocraft.coreplus.utils.file.maps.FileMap;
 import tw.momocraft.slimechunkplus.SlimeChunkPlus;
 import tw.momocraft.slimechunkplus.utils.*;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfigHandler {
-    private static YamlConfiguration configYAML;
+
+    private static final Map<String, YamlConfiguration> configMap = new HashMap<>();
+    private static final Map<String, FileMap> configInfoMap = new HashMap<>();
+
     private static ConfigPath configPath;
 
     public static void generateData(boolean reload) {
-        genConfigFile("config.yml");
-        UtilsHandler.setupFirst(reload);
+        // Config
+        setConfigFile();
+        loadConfig("config.yml");
+        loadConfig("message.yml");
+        checkConfigVer("config.yml");
+        checkConfigVer("message.yml");
+
+        // Others
         setConfigPath(new ConfigPath());
-        if (!reload) {
-            CorePlusAPI.getUpdate().check(getPlugin(), getPlugin(), Bukkit.getConsoleSender(),
-                    SlimeChunkPlus.getInstance().getDescription().getName(),
-                    SlimeChunkPlus.getInstance().getDescription().getVersion(), true);
+        UtilsHandler.setup(reload);
+
+        logConfigMsg();
+    }
+
+    private static void logConfigMsg() {
+        CorePlusAPI.getMsg().sendConsoleMsg(
+                getPluginPrefix() + "Load configurations: " + configMap.keySet());
+    }
+
+    private static void setConfigFile() {
+        FileMap fileMap;
+        String filePath;
+        String fileName;
+        // config.yml
+        fileMap = new FileMap();
+        filePath = SlimeChunkPlus.getInstance().getDataFolder().getPath();
+        fileName = "config.yml";
+        fileMap.setFile(new File(filePath, fileName));
+        fileMap.setFileName(fileName);
+        fileMap.setFileType("yaml");
+        fileMap.setVersion(2);
+        configInfoMap.put(fileName, fileMap);
+        // message.yml
+        fileMap = new FileMap();
+        filePath = SlimeChunkPlus.getInstance().getDataFolder().getPath();
+        fileName = "message.yml";
+        fileMap.setFile(new File(filePath, fileName));
+        fileMap.setFileName(fileName);
+        fileMap.setFileType("yaml");
+        fileMap.setVersion(1);
+        configInfoMap.put(fileName, fileMap);
+    }
+
+    private static void loadConfig(String fileName) {
+        File file = configInfoMap.get(fileName).getFile();
+        checkResource(file, fileName);
+        configMap.put(fileName, YamlConfiguration.loadConfiguration(file));
+    }
+
+    private static void checkResource(File file, String resource) {
+        if (!(file).exists()) {
+            try {
+                SlimeChunkPlus.getInstance().saveResource(resource, false);
+            } catch (Exception e) {
+                CorePlusAPI.getMsg().sendErrorMsg(getPluginName(),
+                        "Cannot save " + resource + " to disk!");
+            }
         }
     }
 
     public static FileConfiguration getConfig(String fileName) {
-        File filePath = tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().getDataFolder();
-        File file;
-        switch (fileName) {
-            case "config.yml":
-                if (configYAML == null) {
-                    getConfigData(filePath, fileName);
-                }
-                break;
-            default:
-                break;
-        }
-        file = new File(filePath, fileName);
-        return getPath(fileName, file, false);
+        if (configMap.get(fileName) == null)
+            loadConfig(fileName);
+        return configMap.get(fileName);
     }
 
-    private static void getConfigData(File filePath, String fileName) {
-        File file = new File(filePath, fileName);
-        if (!(file).exists()) {
-            try {
-                tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().saveResource(fileName, false);
-            } catch (Exception e) {
-                CorePlusAPI.getMsg().sendErrorMsg(ConfigHandler.getPrefix(),
-                        "Cannot save " + fileName + " to disk!");
-                return;
-            }
-        }
-        getPath(fileName, file, true);
-    }
-
-    private static YamlConfiguration getPath(String fileName, File file, boolean saveData) {
-        switch (fileName) {
-            case "config.yml":
-                if (saveData) {
-                    configYAML = YamlConfiguration.loadConfiguration(file);
-                }
-                return configYAML;
-        }
-        return null;
-    }
-
-    private static void genConfigFile(String fileName) {
+    private static void checkConfigVer(String fileName) {
         String[] fileNameSlit = fileName.split("\\.(?=[^.]+$)");
-        int configVer = 0;
-        File filePath = tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().getDataFolder();
-        switch (fileName) {
-            case "config.yml":
-                configVer = 2;
-                break;
-        }
-        getConfigData(filePath, fileName);
-        File File = new File(filePath, fileName);
-        if (File.exists() && getConfig(fileName).getInt("Config-Version") != configVer) {
-            if (tw.momocraft.slimechunkplus.SlimeChunkPlus.getInstance().getResource(fileName) != null) {
+        FileMap fileMap = configInfoMap.get(fileName);
+        String filePath = fileMap.getFilePath();
+        int version = fileMap.getVersion();
+
+        loadConfig(fileName);
+        File file = new File(filePath, fileName);
+        if (file.exists() && getConfig(fileName).getInt("Config-Version") != version) {
+            if (SlimeChunkPlus.getInstance().getResource(fileName) != null) {
                 LocalDateTime currentDate = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
                 String currentTime = currentDate.format(formatter);
                 String newGen = fileNameSlit[0] + " " + currentTime + "." + fileNameSlit[0];
                 File newFile = new File(filePath, newGen);
                 if (!newFile.exists()) {
-                    File.renameTo(newFile);
+                    file.renameTo(newFile);
                     File configFile = new File(filePath, fileName);
                     configFile.delete();
-                    getConfigData(filePath, fileName);
+                    loadConfig(fileName);
                     CorePlusAPI.getMsg().sendConsoleMsg(getPrefix(),
                             "&4The file \"" + fileName + "\" is out of date, generating a new one!");
                 }
@@ -106,8 +124,7 @@ public class ConfigHandler {
         return configPath;
     }
 
-
-    public static String getPlugin() {
+    public static String getPluginName() {
         return SlimeChunkPlus.getInstance().getDescription().getName();
     }
 
@@ -116,12 +133,14 @@ public class ConfigHandler {
     }
 
     public static String getPrefix() {
-        return getConfig("config.yml").getString("Message.prefix");
+        return getConfig("message.yml").getString("Message.prefix");
     }
-
 
     public static boolean isDebug() {
         return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
     }
 
+    public static boolean isCheckUpdates() {
+        return ConfigHandler.getConfig("config.yml").getBoolean("Check-Updates");
+    }
 }

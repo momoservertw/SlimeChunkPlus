@@ -21,13 +21,15 @@ public class SlimeChunk {
             player = (Player) sender;
         Location loc = player.getLocation();
         if (loc.getChunk().isSlimeChunk()) {
-            CorePlusAPI.getCmd().sendCmd(ConfigHandler.getPlugin(), player, player, ConfigHandler.getConfigPath().getSlimeChunkSucceedCmds());
+            CorePlusAPI.getCmd().sendCmd(ConfigHandler.getPluginName(),
+                    player, ConfigHandler.getConfigPath().getSlimeChunkSucceedCmds());
             CorePlusAPI.getMsg().sendDetailMsg(ConfigHandler.isDebug(), ConfigHandler.getPluginPrefix(),
                     "Slime-Chunk", player.getName(), "isSlimeChunk", "succeed",
                     new Throwable().getStackTrace()[0]);
             return;
         }
-        CorePlusAPI.getCmd().sendCmd(ConfigHandler.getPlugin(), player, player, ConfigHandler.getConfigPath().getSlimeChunkFailedCmds());
+        CorePlusAPI.getCmd().sendCmd(ConfigHandler.getPluginName(),
+                player, ConfigHandler.getConfigPath().getSlimeChunkFailedCmds());
         if (ConfigHandler.getConfigPath().isSlimeChunkNearInfo()) {
             int range = ConfigHandler.getConfigPath().getSlimeChunkNearInfoRange();
             Map<Integer, Integer> chunkMap = getSlimeChunksAround(loc, range);
